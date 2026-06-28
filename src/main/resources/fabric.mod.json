@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "id": "nine",
+  "version": "${version}",
+  "name": "nine",
+  "description": "hi",
+  "authors": [
+    "echolotl"
+  ],
+  "contact": {},
+  "custom": {
+    "build_date": "${build_date}"
+  },
+  "license": "MIT",
+  "icon": "assets/nine/icon.png",
+  "environment": "server",
+  "entrypoints": {
+    "fabric-datagen": [
+      "lol.echolotl.nine.client.NineDataGenerator"
+    ],
+    "main": [
+      "lol.echolotl.nine.Nine"
+    ]
+  },
+  "mixins": [
+    "nine.mixins.json",
+    {
+      "config": "nine.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric-language-kotlin": ">=${kotlin_loader_version}",
+    "fabric-api": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}

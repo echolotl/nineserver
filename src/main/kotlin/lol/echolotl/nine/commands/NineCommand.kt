@@ -1,0 +1,32 @@
+package lol.echolotl.nine.commands
+
+import com.mojang.brigadier.CommandDispatcher
+import com.mojang.brigadier.context.CommandContext
+import lol.echolotl.nine.util.MiniMessageUtil
+import net.minecraft.commands.CommandSourceStack
+import net.minecraft.commands.Commands
+import net.fabricmc.loader.api.FabricLoader
+
+class NineCommand {
+    val message: String = """
+        |<gradient:#0DFF00:#00B84D:#048582><b>9❇🟩🟢</b>mod</gradient> <gray>v%s<br>by echolotl</gray>
+        |<gray>Updated on %s</gray>
+        |
+        |<click:OPEN_URL:'https://docs.papermc.io/adventure/minimessage/format/'><blue><u>MiniMessage docs</u></blue></click>
+    """.trimMargin()
+    fun register(dispatcher: CommandDispatcher<CommandSourceStack>) {
+        dispatcher.register(
+            Commands.literal("nine")
+                .executes { nine(it) }
+        )
+    }
+
+    fun nine(ctx: CommandContext<CommandSourceStack>): Int {
+        val metadata = FabricLoader.getInstance().getModContainer("nine")
+            .orElseThrow().metadata
+        val modVersion = metadata.version.friendlyString
+        val buildDate = metadata.getCustomValue("build_date")?.asString ?: "unknown"
+        ctx.source.sendSuccess({ MiniMessageUtil.deserialize(message.format(modVersion, buildDate)) }, false)
+        return 1
+    }
+}
