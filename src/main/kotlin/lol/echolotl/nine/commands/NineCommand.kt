@@ -8,12 +8,13 @@ import net.minecraft.commands.Commands
 import net.fabricmc.loader.api.FabricLoader
 
 class NineCommand {
-    val message: String = """
-        |<gradient:#0DFF00:#00B84D:#048582><b>9❇🟩🟢</b>mod</gradient> <gray>v%s<br>by echolotl</gray>
+    private val message: String = """
+        |<gradient:#0DFF00:#00B84D:#048582><b>9❇🟩🟢</b>mod</gradient> <gray>v%s<br>by <reset><head:echolotl> <gray>echolotl</gray>
         |<gray>Updated on %s</gray>
         |
-        |<click:OPEN_URL:'https://docs.papermc.io/adventure/minimessage/format/'><blue><u>MiniMessage docs</u></blue></click>
+        |- <click:OPEN_URL:'https://docs.papermc.io/adventure/minimessage/format/'><blue><u>MiniMessage docs</u></blue></click>
     """.trimMargin()
+
     fun register(dispatcher: CommandDispatcher<CommandSourceStack>) {
         dispatcher.register(
             Commands.literal("nine")
@@ -21,7 +22,7 @@ class NineCommand {
         )
     }
 
-    fun nine(ctx: CommandContext<CommandSourceStack>): Int {
+    private fun nine(ctx: CommandContext<CommandSourceStack>): Int {
         val metadata = FabricLoader.getInstance().getModContainer("nine")
             .orElseThrow().metadata
         val modVersion = metadata.version.friendlyString

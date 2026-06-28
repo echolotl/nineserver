@@ -4,7 +4,11 @@
   "package": "lol.echolotl.nine.mixin",
   "compatibilityLevel": "JAVA_25",
   "mixins": [
-    "MiniMessageMixin"
+    "DefaultChatMessageMixin",
+    "commands.SayCommandMixin",
+    "commands.MeCommandMixin",
+    "commands.MsgCommandMixin",
+    "commands.TeamMsgCommandMixin"
   ],
   "injectors": {
     "defaultRequire": 1
