@@ -8,7 +8,8 @@
     "commands.SayCommandMixin",
     "commands.MeCommandMixin",
     "commands.MsgCommandMixin",
-    "commands.TeamMsgCommandMixin"
+    "commands.TeamMsgCommandMixin",
+    "motd.HandleStatusRequestMOTDMixin"
   ],
   "injectors": {
     "defaultRequire": 1

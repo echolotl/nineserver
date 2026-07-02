@@ -2,10 +2,12 @@ package lol.echolotl.nine.commands
 
 import com.mojang.brigadier.CommandDispatcher
 import com.mojang.brigadier.context.CommandContext
+import lol.echolotl.nine.motd.NineMOTD
 import lol.echolotl.nine.util.MiniMessageUtil
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
 import net.fabricmc.loader.api.FabricLoader
+import net.minecraft.server.permissions.Permissions
 
 class NineCommand {
     private val message: String = """
@@ -19,6 +21,11 @@ class NineCommand {
         dispatcher.register(
             Commands.literal("nine")
                 .executes { nine(it) }
+                .then(
+                    Commands.literal("motd")
+                        .requires {source -> source.permissions().hasPermission(Permissions.COMMANDS_OWNER)}
+                        .executes { reloadMOTD(it) }
+                )
         )
     }
 
@@ -28,6 +35,12 @@ class NineCommand {
         val modVersion = metadata.version.friendlyString
         val buildDate = metadata.getCustomValue("build_date")?.asString ?: "unknown"
         ctx.source.sendSuccess({ MiniMessageUtil.deserialize(message.format(modVersion, buildDate)) }, false)
+        return 1
+    }
+
+    private fun reloadMOTD(ctx: CommandContext<CommandSourceStack>): Int {
+        NineMOTD.reload()
+        ctx.source.sendSuccess({ MiniMessageUtil.deserialize("<green>☺ </green><gray>Reloaded all MOTDs") }, true)
         return 1
     }
 }

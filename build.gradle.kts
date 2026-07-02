@@ -95,9 +95,10 @@ dependencies {
     minecraft("com.mojang:minecraft:${project.property("minecraft_version")}")
     implementation("net.fabricmc:fabric-loader:${project.property("loader_version")}")
     implementation("net.fabricmc:fabric-language-kotlin:${project.property("kotlin_loader_version")}")
-    implementation(include("net.kyori:adventure-platform-fabric:${project.property("adventure_version")}")!!)
-
+    implementation("net.kyori:adventure-platform-fabric:${project.property("adventure_version")}")
     implementation("net.fabricmc.fabric-api:fabric-api:${project.property("fabric_version")}")
+
+    include(implementation("org.yaml:snakeyaml:2.3")!!)
 }
 
 tasks.processResources {
