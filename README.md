@@ -8,3 +8,4 @@ Currently on Minecraft **26.2**.
 
 - MiniMessage usage in chat messages and commands.
 - `/nine` command for mod info
+- MiniMOTD-like MOTD messages and templating
