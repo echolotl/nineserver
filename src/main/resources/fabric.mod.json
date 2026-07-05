@@ -12,7 +12,7 @@
     "build_date": "${build_date}"
   },
   "license": "MIT",
-  "icon": "",
+  "icon": "./icon.png",
   "environment": "server",
   "entrypoints": {
     "fabric-datagen": [
