@@ -16,11 +16,18 @@ data class NineMOTDConfig(
     val motds: List<NineMOTDEntry>,
 ) {
 
+
     fun random(): NineMOTDEntry = motds.random()
 
     fun render(motd: NineMOTDEntry): Pair<String, String> {
-        val renderedLine1 = if (template1.isNotBlank() && !motd.ignoreTemplate) template1.replace(TEMPLATE_STRING, motd.line1) else motd.line1
-        val renderedLine2 = if (template2.isNotBlank() && !motd.ignoreTemplate) template2.replace(TEMPLATE_STRING, motd.line2) else motd.line2
+        val renderedLine1 = if (template1.isNotBlank() && !motd.ignoreTemplate) template1.replace(
+            TEMPLATE_STRING,
+            motd.line1
+        ) else motd.line1
+        val renderedLine2 = if (template2.isNotBlank() && !motd.ignoreTemplate) template2.replace(
+            TEMPLATE_STRING,
+            motd.line2
+        ) else motd.line2
         return renderedLine1 to renderedLine2
     }
 
@@ -40,34 +47,6 @@ data class NineMOTDConfig(
         private const val TEMPLATE_STRING = $$"$temp$"
 
         private val yaml = Yaml()
-
-        fun parse(text: String): NineMOTDConfig {
-            return try {
-                val data = yaml.load<Map<String, Any?>>(text) ?: return DEFAULT
-
-                val enabled = (data["enabled"] as? Boolean) ?: DEFAULT.enabled
-
-                val template1 = (data["template1"] as? String) ?: DEFAULT.template1
-                val template2 = (data["template2"] as? String) ?: DEFAULT.template2
-
-                val rawMotds = data["motds"] as? List<*>
-                val motds = rawMotds
-                    ?.mapNotNull { entry ->
-                        val cast = entry as Map<*, *>
-                        val line1 = cast["line1"] as? String
-                        val line2 = cast["line2"] as? String
-                        val icon = (cast["icon"] as? String)?.takeIf { it.isNotBlank() }
-                        if (line1.isNullOrEmpty() && line2.isNullOrEmpty()) null
-                        else NineMOTDEntry(line1 ?: "", line2 ?: "", icon)
-                    }
-                    ?.takeIf { it.isNotEmpty() }
-                    ?: DEFAULT.motds
-
-                NineMOTDConfig(enabled = enabled, template1, template2, motds = motds)
-            } catch (_: Exception) {
-                DEFAULT
-            }
-        }
 
         val DEFAULT_CONFIG: String = """
             |# NineMOD MOTD module config
@@ -105,6 +84,35 @@ data class NineMOTDConfig(
             |    # ignoreTemplate: false
             |
         """.trimMargin()
+
+        fun parse(text: String): NineMOTDConfig {
+            return try {
+                val data = yaml.load<Map<String, Any?>>(text) ?: return DEFAULT
+
+                val enabled = (data["enabled"] as? Boolean) ?: DEFAULT.enabled
+
+                val template1 = (data["template1"] as? String) ?: DEFAULT.template1
+                val template2 = (data["template2"] as? String) ?: DEFAULT.template2
+
+                val rawMotds = data["motds"] as? List<*>
+                val motds = rawMotds
+                    ?.mapNotNull { entry ->
+                        val cast = entry as Map<*, *>
+                        val line1 = cast["line1"] as? String
+                        val line2 = cast["line2"] as? String
+                        val icon = (cast["icon"] as? String)?.takeIf { it.isNotBlank() }
+                        val ignoreTemplate = (cast["ignoreTemplate"] as? Boolean) ?: false
+                        if (line1.isNullOrEmpty() && line2.isNullOrEmpty()) null
+                        else NineMOTDEntry(line1 ?: "", line2 ?: "", icon, ignoreTemplate)
+                    }
+                    ?.takeIf { it.isNotEmpty() }
+                    ?: DEFAULT.motds
+
+                NineMOTDConfig(enabled = enabled, template1, template2, motds = motds)
+            } catch (_: Exception) {
+                DEFAULT
+            }
+        }
     }
 }
 

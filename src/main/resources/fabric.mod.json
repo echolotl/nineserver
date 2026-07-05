@@ -12,7 +12,7 @@
     "build_date": "${build_date}"
   },
   "license": "MIT",
-  "icon": "assets/nine/icon.png",
+  "icon": "",
   "environment": "server",
   "entrypoints": {
     "fabric-datagen": [
@@ -20,6 +20,9 @@
     ],
     "main": [
       "lol.echolotl.nine.Nine"
+    ],
+    "preLaunch": [
+      "lol.echolotl.nine.NinePrelaunch"
     ]
   },
   "mixins": [

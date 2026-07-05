@@ -4,9 +4,9 @@ import com.mojang.brigadier.CommandDispatcher
 import com.mojang.brigadier.context.CommandContext
 import lol.echolotl.nine.motd.NineMOTD
 import lol.echolotl.nine.util.MiniMessageUtil
+import net.fabricmc.loader.api.FabricLoader
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
-import net.fabricmc.loader.api.FabricLoader
 import net.minecraft.server.permissions.Permissions
 
 class NineCommand {
@@ -23,7 +23,7 @@ class NineCommand {
                 .executes { nine(it) }
                 .then(
                     Commands.literal("motd")
-                        .requires {source -> source.permissions().hasPermission(Permissions.COMMANDS_OWNER)}
+                        .requires { source -> source.permissions().hasPermission(Permissions.COMMANDS_OWNER) }
                         .executes { reloadMOTD(it) }
                 )
         )

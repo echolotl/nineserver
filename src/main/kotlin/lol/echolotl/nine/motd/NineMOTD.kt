@@ -5,7 +5,7 @@ import lol.echolotl.nine.util.MiniMessageUtil
 import net.minecraft.network.protocol.status.ServerStatus
 import net.minecraft.server.MinecraftServer
 import java.nio.file.Files
-import java.util.Optional
+import java.util.*
 
 object NineMOTD {
 

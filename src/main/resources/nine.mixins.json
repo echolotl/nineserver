@@ -3,6 +3,7 @@
   "minVersion": "0.8",
   "package": "lol.echolotl.nine.mixin",
   "compatibilityLevel": "JAVA_25",
+  "plugin": "lol.echolotl.nine.compat.CompatMixins",
   "mixins": [
     "DefaultChatMessageMixin",
     "commands.SayCommandMixin",

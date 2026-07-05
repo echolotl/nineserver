@@ -4,8 +4,8 @@ import lol.echolotl.nine.motd.NineMOTD
 import net.fabricmc.api.ModInitializer
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents
-import org.slf4j.LoggerFactory
 import net.fabricmc.loader.api.FabricLoader
+import org.slf4j.LoggerFactory
 import java.nio.file.Path
 
 class Nine : ModInitializer {
@@ -25,6 +25,9 @@ class Nine : ModInitializer {
         }
         ServerLifecycleEvents.SERVER_STOPPED.register {
             NineMOTD.destroy()
+        }
+        if (FabricLoader.getInstance().isModLoaded("discord_mc_chat")) {
+            lol.echolotl.nine.compat.discordmcchat.util.TextSegmentConverter.register()
         }
         LOGGER.info("kid named ready")
     }

@@ -86,6 +86,17 @@ repositories {
     maven(url = "https://maven.parchmentmc.org") {
         name = "parchmentmc"
     }
+    exclusiveContent {
+        forRepository {
+            maven(url = "https://api.modrinth.com/maven") {
+                name = "modrinth"
+            }
+        }
+        filter {
+            includeGroup("maven.modrinth")
+        }
+    }
+
     // for releases
     mavenCentral()
 }
@@ -97,6 +108,8 @@ dependencies {
     implementation("net.fabricmc:fabric-language-kotlin:${project.property("kotlin_loader_version")}")
     implementation("net.kyori:adventure-platform-fabric:${project.property("adventure_version")}")
     implementation("net.fabricmc.fabric-api:fabric-api:${project.property("fabric_version")}")
+    compileOnly("maven.modrinth:discord-mc-chat:${project.property("dmcc_version")}")
+    localRuntime("maven.modrinth:discord-mc-chat:${project.property("dmcc_version")}")
 
     include(implementation("org.yaml:snakeyaml:2.3")!!)
 }

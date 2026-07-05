@@ -2,10 +2,8 @@ package lol.echolotl.nine.motd
 
 import net.minecraft.network.chat.Component
 import net.minecraft.network.protocol.status.ServerStatus
-import net.minecraft.network.protocol.status.ServerStatus.Version
-import net.minecraft.network.protocol.status.ServerStatus.Favicon
-import net.minecraft.network.protocol.status.ServerStatus.Players
-import java.util.Optional
+import net.minecraft.network.protocol.status.ServerStatus.*
+import java.util.*
 
 class MutableServerStatus(status: ServerStatus) {
     var description: Component = status.description
