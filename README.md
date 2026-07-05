@@ -8,4 +8,5 @@ Currently on Minecraft **26.2**.
 
 - MiniMessage usage in chat messages and commands.
 - `/nine` command for mod info, reloading MOTD, etc.
+- MiniMOTD-like MOTD messages and templating
 - Integration with [DMCC](https://github.com/Xujiayao/Discord-MC-Chat) for MiniMessage usage
